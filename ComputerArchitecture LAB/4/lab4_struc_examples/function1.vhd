@@ -1,0 +1,36 @@
+
+ENTITY FUNCTION1 IS
+	PORT( X: IN BIT_VECTOR (2 downto 0);
+			z: OUT BIT);
+END FUNCTION1;
+
+ARCHITECTURE AND_OR of FUNCTION1 IS
+
+	COMPONENT AND2LOCAL
+		PORT (I1, I2: IN BIT;
+				O: OUT BIT);
+	END COMPONENT;
+	
+	COMPONENT OR3LOCAL
+		PORT (I1, I2, I3: IN BIT;
+				O: OUT BIT);
+	END COMPONENT;
+
+	SIGNAL A1, A2, A3: BIT;
+	
+	BEGIN
+	
+	l1: 	AND2LOCAL
+			port map(X(0), X(1), A1);
+			
+	l2: 	AND2LOCAL
+			port map(X(0), X(2), A2);
+	
+	l3: 	AND2LOCAL
+			port map(X(1), X(2), A3);
+			
+	l4: 	OR3LOCAL
+			port map(A1, A2, A3, Z);
+END AND_OR;
+			
+	
